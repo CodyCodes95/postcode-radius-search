@@ -1,9 +1,8 @@
-import React from "react";
-import usePlacesAutocomplete, { getGeocode, getLatLng } from "use-places-autocomplete";
+import usePlacesAutocomplete, { getDetails } from "use-places-autocomplete";
 import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption } from "@reach/combobox";
 import "@reach/combobox/styles.css";
 
-const PlacesAutocomplete = ({setAddress} :any) => {
+const PlacesAutocomplete = ({setAddress, setLat, setLng} :any) => {
   const {
     ready,
     value,
@@ -21,19 +20,32 @@ const PlacesAutocomplete = ({setAddress} :any) => {
     debounce: 300,
   });
 
-  const handleSelect = async (address: string) => {
+  const handleSelect = async (id: string, address: string) => {
     setValue(address, false);
-    setAddress(address);
     clearSuggestions();
+    const results = await getDetails({ placeId: id });
+    console.log(results)
+    const lat = await results.geometry.location.lat();
+    const lng = await results.geometry.location.lng();
+    setLat(lat);
+    setLng(lng);
   };
 
   return (
-    <Combobox onSelect={handleSelect} aria-labelledby="demo">
-      <ComboboxInput value={value} onChange={(e) => setValue(e.target.value)} disabled={!ready} />
+    <Combobox>
+      <ComboboxInput
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        disabled={!ready}
+        placeholder="Enter a place"
+        onClick={() => setValue("")}
+      />
       <ComboboxPopover>
         <ComboboxList>
           {status === "OK" &&
-            data.map(({ place_id, description }) => <ComboboxOption key={place_id} value={description} />)}
+            data.map(({ place_id, description }) => (
+              <ComboboxOption onClick={() => handleSelect(place_id, description)} key={place_id} value={description} />
+            ))}
         </ComboboxList>
       </ComboboxPopover>
     </Combobox>
