@@ -23,10 +23,6 @@ const App = () => {
     setResults(data)
   };
 
-  React.useEffect(() => {
-    console.log(lat)
-  }, [lat])
-
   
   return isLoaded ? (
     <div className="min-h-screen w-full flex flex-col items-center justify-center bg-slate-900 text-white">
@@ -38,9 +34,15 @@ const App = () => {
             onChange={(e) => setRadius(e.target.value)}
             value={radius as string}
             placeholder="Enter a radius"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[[50%]] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           />
         </div>
-        <button onClick={handleSubmit}>Find Postcodes</button>
+        <button
+          className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 mt-4"
+          onClick={handleSubmit}
+        >
+          Find Postcodes
+        </button>
       </div>
       <footer className="w-full flex items-center justify-center sticky top-[100vh]">
         <a className="p-2" href="https://github.com/CodyCodes95">

@@ -23,8 +23,7 @@ const PlacesAutocomplete = ({setAddress, setLat, setLng} :any) => {
   const handleSelect = async (id: string, address: string) => {
     setValue(address, false);
     clearSuggestions();
-    const results = await getDetails({ placeId: id });
-    console.log(results)
+    const results = await getDetails({ placeId: id }) as any
     const lat = await results.geometry.location.lat();
     const lng = await results.geometry.location.lng();
     setLat(lat);
@@ -34,6 +33,7 @@ const PlacesAutocomplete = ({setAddress, setLat, setLng} :any) => {
   return (
     <Combobox>
       <ComboboxInput
+        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         value={value}
         onChange={(e) => setValue(e.target.value)}
         disabled={!ready}
