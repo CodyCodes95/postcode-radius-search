@@ -80,7 +80,7 @@ const App = () => {
           ) : null}
         </div>
         {results.length ? (
-          <div className="flex flex-col justify-center items-center">
+          <div className="flex flex-col justify-center items-center relative top-[9rem]">
             <p className="text-white text-center">
               {results.length} postcodes found within {radius}km of the selected location
             </p>
@@ -100,7 +100,7 @@ const App = () => {
             Twitter
           </a>
           <a
-            className="p-2 text-lg cursor-pointer"
+            className={`p-2 text-lg cursor-pointer ${results.length ? "animate-bounce" : ""}`}
             onClick={() => {
               apiDiv.current?.scrollIntoView({ behavior: "smooth" });
             }}
@@ -114,7 +114,7 @@ const App = () => {
         className="min-h-screen w-full flex flex-col items-center justify-center bg-slate-900 text-gray-300 text-lg text-center"
       >
         <p className="w-1/2 p-4 text-xl">Yes there is!</p>
-        <p className="w-1/2 p-4">The API is free to use and available by querying:</p>
+        <p className="w-1/2 p-4 text-xl">The API is free to use and available by querying:</p>
         <p
           onClick={() => {
             navigator.clipboard.writeText(`
@@ -122,33 +122,33 @@ const App = () => {
         `);
             toast.success("Copied to clipboard");
           }}
-          className="p-4 bg-slate-600 rounded-lg cursor-pointer hover:bg-slate-700 duration-150 ease-in-out"
+          className="p-5 bg-slate-600 rounded-xl cursor-pointer hover:bg-slate-700 duration-150 ease-in-out"
         >
           https://aus-postcode-radius-search.up.railway.app/api/v1/postcodes/{latParam || "lat"}/{lngParam || "lng"}/
           {radiusParam || "radius"}
         </p>
         <div className="p-2"></div>
-        <div className="flex">
+        <div className="flex flex-col md:flex-row">
           <input
             type="text"
             onChange={(e) => setLatParam(e.target.value)}
             value={latParam as string}
             placeholder="Latitude"
-            className="bg-gray-50 m-2 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[[50%]] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="bg-gray-50 m-2 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           />
           <input
             type="text"
             onChange={(e) => setLngParam(e.target.value)}
             value={lngParam as string}
             placeholder="Longitude"
-            className="bg-gray-50 m-2 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[[50%]] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="bg-gray-50 m-2 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           />
           <input
             type="text"
             onChange={(e) => setRadiusParam(e.target.value)}
             value={radiusParam as string}
             placeholder="Radius"
-            className="bg-gray-50 m-2 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[[50%]] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="bg-gray-50 m-2 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           />
         </div>
       </div>
