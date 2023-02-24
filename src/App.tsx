@@ -25,7 +25,7 @@ const App = () => {
   const handleSubmit = async () => {
     setResultsLoading(true);
     const res = await fetch(
-      `https://postcode-radius-search.up.railway.app/api/v1/postcodes/${lat}/${lng}/${radius}`
+      `https://postcode-radius-search-production.up.railway.app/api/v1/postcodes/${lat}/${lng}/${radius}`
     );
     const data = (await res.json()) as string[];
     setResults(data);
@@ -118,13 +118,13 @@ const App = () => {
         <p
           onClick={() => {
             navigator.clipboard.writeText(`
-        https://postcode-radius-search.up.railway.app/api/v1/postcodes/${latParam || "lat"}/${lngParam || "lng"}/${radiusParam || "radius"}
+        https://postcode-radius-search-production.up.railway.app/api/v1/postcodes/${latParam || "lat"}/${lngParam || "lng"}/${radiusParam || "radius"}
         `);
             toast.success("Copied to clipboard");
           }}
           className="p-5 bg-slate-600 rounded-xl cursor-pointer hover:bg-slate-700 duration-150 ease-in-out"
         >
-          https://postcode-radius-search.up.railway.app/api/v1/postcodes/{latParam || "lat"}/{lngParam || "lng"}/
+          https://postcode-radius-search-production.up.railway.app/api/v1/postcodes/{latParam || "lat"}/{lngParam || "lng"}/
           {radiusParam || "radius"}
         </p>
         <div className="p-2"></div>
