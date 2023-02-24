@@ -2,7 +2,12 @@ import usePlacesAutocomplete, { getDetails } from "use-places-autocomplete";
 import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption } from "@reach/combobox";
 import "@reach/combobox/styles.css";
 
-const PlacesAutocomplete = ({setAddress, setLat, setLng} :any) => {
+type Props = {
+  setLat: React.Dispatch<React.SetStateAction<number>>;
+  setLng: React.Dispatch<React.SetStateAction<number>>;
+};
+
+const PlacesAutocomplete: React.FC<Props> = ({ setLat, setLng }) => {
   const {
     ready,
     value,
@@ -23,7 +28,7 @@ const PlacesAutocomplete = ({setAddress, setLat, setLng} :any) => {
   const handleSelect = async (id: string, address: string) => {
     setValue(address, false);
     clearSuggestions();
-    const results = await getDetails({ placeId: id }) as any
+    const results = (await getDetails({ placeId: id })) as any;
     const lat = await results.geometry.location.lat();
     const lng = await results.geometry.location.lng();
     setLat(lat);
