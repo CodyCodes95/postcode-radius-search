@@ -118,7 +118,7 @@ const App = () => {
         <p
           onClick={() => {
             navigator.clipboard.writeText(`
-        https://postcode-radius-search.up.railway.app/api/v1/postcodes/${latParam}/${lngParam}/${radiusParam}
+        https://postcode-radius-search.up.railway.app/api/v1/postcodes/${latParam || "lat"}/${lngParam || "lng"}/${radiusParam || "radius"}
         `);
             toast.success("Copied to clipboard");
           }}
