@@ -1,7 +1,5 @@
-import reactLogo from "./assets/react.svg";
 import { useLoadScript } from "@react-google-maps/api";
 import PlacesAutocomplete from "./components/PlacesAutocomplete";
-import { getGeocode, getLatLng } from "use-places-autocomplete";
 import loader from "./assets/loader.svg";
 import { useRef, useState } from "react";
 
@@ -29,7 +27,7 @@ const App = () => {
     setResultsLoading(false);
   };
 
-  if (!isLoaded || resultsLoading)
+  if (!isLoaded)
     return (
       <div className="min-h-screen w-full flex flex-col items-center justify-center bg-slate-900 text-white">
         <img src={loader} alt="Loading spinner" />
@@ -39,7 +37,7 @@ const App = () => {
   return (
     <>
       <div className="min-h-screen w-full flex flex-col items-center justify-center bg-slate-900 text-white">
-        <div>
+        <div className="flex justify-around w-1/2">
           <div className="flex flex-col justify-center items-center">
             <div className="flex flex-col md:flex-row text-black">
               <PlacesAutocomplete setLat={setLat} setLng={setLng} />
@@ -62,6 +60,13 @@ const App = () => {
               Find Postcodes
             </button>
           </div>
+          {results.length ? (
+          <div className="flex flex-col max-h-[30rem] overflow-scroll bg-slate-800 rounded-md w-40">
+            {results.map((result) => (
+              <p className="p-2 text-gray-400 text-center">{result}</p>
+            ))}
+          </div>
+          ) : null}
         </div>
         <footer className="w-full flex items-center justify-center sticky top-[100vh]">
           <a target="_blank" className="p-2" href="https://github.com/CodyCodes95">
